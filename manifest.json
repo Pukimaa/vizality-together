@@ -1,0 +1,8 @@
+{
+   "icon": "assets/icon.png",
+   "name": "Vizality Together",
+   "description": "Watch YouTube, play Poker, Chess and many others games together!",
+   "author": "Pukima",
+   "version": "1.0.0",
+   "license": "MIT"
+}
