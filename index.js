@@ -4,7 +4,7 @@ import { patch } from '@vizality/patcher';
 import { Plugin } from '@vizality/entities';
 
 const { YOUTUBE_APPLICATION_ID, POKER_NIGHT_APPLICATION_ID, FISHINGTON_APPLICATION_ID, END_GAME_APPLICATION_ID, CHESS_IN_THE_PARK_APPLICATION_ID } = getModule(["YOUTUBE_APPLICATION_ID"], false);
-const useExperiment = getAllModules(obj => obj?.definition?.label === "Activities Experiment", false);
+const useExperiment = getModule(obj => obj?.definition?.label === "Activities Experiment", false);
 const getGuild = getModule(["getGuild"], false);
 
 const ids = [YOUTUBE_APPLICATION_ID, POKER_NIGHT_APPLICATION_ID, FISHINGTON_APPLICATION_ID, END_GAME_APPLICATION_ID, CHESS_IN_THE_PARK_APPLICATION_ID];
