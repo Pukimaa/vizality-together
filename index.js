@@ -3,53 +3,37 @@ import { patch, unpatch } from '@vizality/patcher';
 
 import { Plugin } from '@vizality/entities';
 
-const {
-	YOUTUBE_APPLICATION_ID,
-	POKER_NIGHT_APPLICATION_ID,
-	FISHINGTON_APPLICATION_ID,
-	END_GAME_APPLICATION_ID,
-	CHESS_IN_THE_PARK_APPLICATION_ID
-} = getModule(["YOUTUBE_APPLICATION_ID"], false);
+const { 
+	WATCH_YOUTUBE_PROD_APP_ID, 
+	POKER_NIGHT_APPLICATION_ID, 
+	FISHINGTON_APPLICATION_ID, 
+	END_GAME_APPLICATION_ID 
+} = getModule(["WATCH_YOUTUBE_PROD_APP_ID"], false);
 
-module.exports = class vizalityTogether extends Plugin {
-    async start() {
-        patch("vizality-together-region", getModule(["getGuild"], false), "getGuild", (args, res) => {
-            if (res) res.region = "us-west";
-            return res;
-        });
+const Activities = getModule(["getEnabledAppIds"], false);
 
-        patch("vizality-together-ids", getModule(["getEnabledAppIds"], false), "getEnabledAppIds", (args, res) => {
-            res = [
-				YOUTUBE_APPLICATION_ID,
-				POKER_NIGHT_APPLICATION_ID,
-				FISHINGTON_APPLICATION_ID,
-				END_GAME_APPLICATION_ID,
-				CHESS_IN_THE_PARK_APPLICATION_ID
-			];
-			return res;
-        });
+module.exports = class VizalityTogether extends Plugin {
+    async start() {	   
+	patch("vizality-together-ids", Activities.__proto__, "getEnabledAppIds", (args, res) => {
+		return [
+			WATCH_YOUTUBE_PROD_APP_ID,
+			POKER_NIGHT_APPLICATION_ID,
+			FISHINGTON_APPLICATION_ID,
+			END_GAME_APPLICATION_ID,
+			// some games that i couldn't find except by manually grabbing from discordgamelab server
+			"832012774040141894", // chess
+			"878067389634314250", // doodle
+			"879863976006127627", // word snacks
+			"879863686565621790" // letter tile
+		];
+	});
 
-        patch(
-            "vizality-together-rocket",
-            getModule((obj) => obj?.definition?.label == "Activities Experiment", false),
-            "useExperiment",
-            (args, res) => {
-                if (!args[0].guildId) return res;
-
-                if (!res[0]?.enabledApplicationIds?.length) {
-                    res[0] = {
-                        rtcPanelIconsOnly: true,
-                        showDiscordGameTooltips: false,
-                        enableActivities: true,
-						useNewInviteButton: true
-                    };
-                }
-            }
-        )
+        patch("vizality-together-rocket", Activities.__proto__, "isActivitiesEnabled", () => {
+		return true;
+	});
     }
 
     stop() {
-        unpatch("vizality-together-region");
         unpatch("vizality-together-rocket");
         unpatch("vizality-together-ids")
     }
