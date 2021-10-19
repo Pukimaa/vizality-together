@@ -22,6 +22,7 @@ const DATA_MINED_GAMES = {
 		SpellCast: "852509694341283871"
 	},
 	DEV: {
+        "Old Youtube": "755600276941176913",
 		"Poker Night Staging": "763116274876022855",
 		"Poker Night Dev": "763133495793942528",
 		"Poker QA": "801133024841957428",
