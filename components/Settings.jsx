@@ -7,7 +7,7 @@ export default memo(({ getSetting, toggleSetting }) => {
 		<div>
 			<SwitchItem
 				onChange={() => toggleSetting("showDev")}
-				note={"Enables all dev branch of the games discord has to offer."}
+				note={"Enables all dev branch of the games Discord has to offer."}
 				value={getSetting("showDev", false)}
 			>
 				Enable dev games
@@ -15,7 +15,7 @@ export default memo(({ getSetting, toggleSetting }) => {
 
 			<SwitchItem
 				onChange={() => toggleSetting("showUnnamed")}
-				note={"Enables all the unnamed games discord has to offer."}
+				note={"Enables all the unnamed games Discord has to offer."}
 				value={getSetting("showUnnamed", false)}
 			>
 				Enable unnamed games
